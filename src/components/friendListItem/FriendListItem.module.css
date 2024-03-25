@@ -1,0 +1,18 @@
+.avatar {
+  width: 76px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 12px;
+}
+
+.title {
+  font-size: 24px;
+}
+
+.greenStatus {
+  color: green;
+}
+
+.redStatus {
+  color: red;
+}

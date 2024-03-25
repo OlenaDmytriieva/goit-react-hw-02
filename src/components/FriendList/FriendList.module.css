@@ -1,0 +1,14 @@
+.list {
+  display: flex;
+  gap: 12px;
+}
+
+.listItem {
+  border: 1px solid #000;
+  border-radius: 4px;
+  padding: 12px;
+  text-align: center;
+  flex-grow: 1;
+  flex-basis: 0;
+  box-shadow: 6px 8px 41px 0px rgba(168, 164, 170, 0.75);
+}
