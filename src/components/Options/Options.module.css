@@ -1,0 +1,23 @@
+.button {
+  background-color: #f0f0f0;
+  padding: 0 4px;
+  border: solid 1px #7a7a7a;
+  border-radius: 2px;
+}
+
+.button:hover {
+  background-color: #f8f8f8;
+  box-shadow: 1px 1px 1px 1px rgba(215, 212, 215, 0.62);
+}
+
+.button:focus {
+  background-color: #f0f0f0;
+  box-shadow: 0.2px 0.2px 0.2px 0.2px rgba(181, 175, 181, 0.62);
+}
+
+.buttonsWrap {
+  display: flex;
+  gap: 4px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}

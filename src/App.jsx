@@ -1,32 +1,57 @@
-// import { Profile, FriendList, Section, Container, Heading } from "components";
-import { Profile } from "./components/Profile/Profile";
-import { FriendList } from "./components/FriendList/FriendList";
+import { Description } from "./components/Description/Description";
+import { Feedback } from "./components/Feedback/Feedback";
+import { Options } from "./components/Options/Options";
 import { Container } from "./components/Container/Container";
-import { Heading } from "./components/Heading/Heading";
 import { Section } from "./components/Section/Section";
-import userData from "./data/userData.json";
-import friends from "./data/friends.json";
-import transactions from "./data/transactions.json";
-import { TransactionHistory } from "./components/TransactionHistory/TransactionHistory";
+import { Notification } from "./components/Notification/Notification";
+
+import { useState, useEffect } from "react";
 
 export const App = () => {
+  const [feedback, setFeedback] = useState(() => {
+    const storedFeedback = localStorage.getItem("feedback");
+    return storedFeedback
+      ? JSON.parse(storedFeedback)
+      : { good: 0, neutral: 0, bad: 0 };
+  });
+
+  useEffect(() => {
+    localStorage.setItem("feedback", JSON.stringify(feedback));
+  }, [feedback]);
+
+  const updateFeedback = (type) => {
+    setFeedback((prevFeedback) => ({
+      ...prevFeedback,
+      [type]: prevFeedback[type] + 1,
+    }));
+  };
+
+  const totalFeedback = feedback.good + feedback.neutral + feedback.bad;
+
+  const resetFeedback = () => {
+    setFeedback({ good: 0, neutral: 0, bad: 0 });
+  };
+
+  const positiveFeedback = Math.round((feedback.good / totalFeedback) * 100);
+
   return (
     <Section>
       <Container>
-        <Heading title="Task 1 Profile" bottom />
-        <Profile
-          name={userData.username}
-          tag={userData.tag}
-          location={userData.location}
-          image={userData.avatar}
-          stats={userData.stats}
+        <Description />
+        <Options
+          updateFeedback={updateFeedback}
+          resetFeedback={resetFeedback}
+          totalFeedback={totalFeedback}
         />
-
-        <Heading title="Task 2 List of friends" top bottom />
-        <FriendList friends={friends} />
-
-        <Heading title="Task 3 Transactions' history" top bottom />
-        <TransactionHistory items={transactions} />
+        {totalFeedback ? (
+          <Feedback
+            feedback={feedback}
+            totalFeedback={totalFeedback}
+            positiveFeedback={positiveFeedback}
+          />
+        ) : (
+          <Notification />
+        )}
       </Container>
     </Section>
   );
